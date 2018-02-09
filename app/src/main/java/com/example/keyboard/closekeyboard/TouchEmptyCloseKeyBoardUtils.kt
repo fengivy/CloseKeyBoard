@@ -6,6 +6,7 @@ import android.graphics.Rect
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
+import android.view.ViewGroup.FOCUS_BEFORE_DESCENDANTS
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 
@@ -31,6 +32,9 @@ class TouchEmptyCloseKeyBoardUtils {
             val view = getChild(decorView, ev)
             //如果点击的view不是EditText并用不是过滤的view则收起键盘
             if (view !is EditText && !filterViews.contains(view)) {
+                decorView.isFocusable = true
+                decorView.isFocusableInTouchMode = true
+                decorView.descendantFocusability = FOCUS_BEFORE_DESCENDANTS
                 focusView.clearFocus()
                 closeKeyboard(focusView, focusView.context)
                 return true
